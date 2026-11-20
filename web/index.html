@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Doodle Aquarium</title>
+<link rel="icon" href="img/icon.png">
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body data-mode="play">
+<canvas id="view"></canvas>
+
+<div id="ui">
+  <header class="brand glass">
+    <img src="img/icon.png" alt="">
+    <div><b>Doodle Aquarium</b><span>Draw it. Drop it in. Watch it swim.</span><em id="save-status" class="ok" title="Click to save now">✓ All saved</em></div>
+  </header>
+
+  <div id="wallpaper" class="glass"></div>
+
+  <aside id="panel" class="glass">
+    <nav class="tabs">
+      <button data-tab="tanks"><span>🏝️</span>Tanks</button>
+      <button data-tab="decor"><span>🌿</span>Decorate</button>
+      <button data-tab="creatures"><span>🐟</span>Creatures</button>
+      <button data-tab="lights"><span>💡</span>Lights</button>
+      <button data-tab="saved"><span>💾</span>Saved</button>
+      <button id="collapse" title="Hide this panel"><span>◀</span></button>
+    </nav>
+
+    <section class="tab-body" id="tab-tanks">
+      <h3>Choose a tank</h3>
+      <div id="tank-list"></div>
+    </section>
+
+    <section class="tab-body hidden" id="tab-decor">
+      <h3>Decorate</h3>
+      <div class="chips" id="decor-cats"></div>
+      <div class="tiles" id="decor-grid"></div>
+      <p class="muted small" id="decor-hint"></p>
+    </section>
+
+    <section class="tab-body hidden" id="tab-creatures">
+      <h3>Make your own creature</h3>
+      <div class="big-buttons">
+        <button class="btn big" id="btn-draw"><span>🖍️</span>Draw one here</button>
+        <label class="btn big"><span>🖼️</span>Use a picture<input type="file" id="file-pic" accept="image/*" hidden></label>
+      </div>
+      <div class="tip">
+        <b>Tip:</b> draw on white paper with a dark outline, colour it in, then take a photo. Fish, divers, a fish with a human face, a flying taco… anything works!
+      </div>
+      <h3>In your tank</h3>
+      <div id="creature-list"></div>
+    </section>
+
+    <section class="tab-body hidden" id="tab-lights">
+      <h3>Lighting</h3>
+      <div class="tiles small" id="light-presets"></div>
+      <div class="field"><label>Light colour</label><input type="color" data-env="lightColor"></div>
+      <div class="field"><label>Brightness</label><input type="range" min="0.05" max="1.6" step="0.01" data-env="lightIntensity"></div>
+      <div class="field"><label>Sun rays</label><input type="range" min="0" max="1.5" step="0.01" data-env="rays"></div>
+      <div class="field"><label>Sparkly light on the sand</label><input type="range" min="0" max="2" step="0.01" data-env="caustics"></div>
+      <div class="field"><label>Glowing things</label><input type="range" min="0" max="1.2" step="0.01" data-env="glow"></div>
+      <div class="field"><label class="check"><input type="checkbox" data-env="disco"> Disco colours</label></div>
+
+      <h3>Water</h3>
+      <div class="swatches" id="water-swatches"></div>
+      <div class="field two"><label>Top</label><input type="color" data-env="waterColor"><label>Deep</label><input type="color" data-env="deepColor"></div>
+      <div class="field"><label>Clear water</label><input type="range" min="0" max="1" step="0.01" data-env="clarity"></div>
+      <div class="field"><label>Bubbles</label><input type="range" min="0" max="1.5" step="0.01" data-env="bubbles"></div>
+      <div class="field"><label>Floating bits</label><input type="range" min="0" max="1.5" step="0.01" data-env="specks"></div>
+
+      <h3>Floor</h3>
+      <div class="chips" id="floor-types"></div>
+      <div class="field two"><label>Colour 1</label><input type="color" data-env="floorColorA"><label>Colour 2</label><input type="color" data-env="floorColorB"></div>
+    </section>
+    <section class="tab-body hidden" id="tab-saved">
+      <h3>This aquarium</h3>
+      <div class="field"><label>Name</label><input type="text" id="prof-name" maxlength="30" class="text"></div>
+      <p class="muted small saved-note">✅ Everything you change is saved by itself, even if you turn the computer off.</p>
+      <div class="big-buttons">
+        <button class="btn" id="prof-new">➕ New aquarium</button>
+        <button class="btn" id="prof-copy">📄 Save a copy</button>
+      </div>
+      <h3>My aquariums</h3>
+      <div id="prof-list"></div>
+    </section>
+  </aside>
+
+  <div id="inspector" class="glass hidden"></div>
+
+  <div id="toolbar" class="glass">
+    <button data-mode="play" class="on"><span>👆</span>Poke &amp; feed</button>
+    <button data-mode="arrange"><span>✋</span>Move things</button>
+    <i class="sep"></i>
+    <button id="btn-feed"><span>🍤</span>Feed everyone</button>
+    <button id="btn-watch"><span>👀</span>Just watch</button>
+  </div>
+
+  <div id="toast"></div>
+  <div id="name-tag"></div>
+</div>
+<button id="unwatch" title="Show controls">👁️</button>
+
+<div id="loading"><div class="spinner">🐠</div><p>Filling the tank…</p></div>
+<div id="fatal" class="hidden"></div>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

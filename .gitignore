@@ -1,0 +1,11 @@
+# Built by build.ps1
+DoodleAquarium.exe
+*.zip
+assets/
+
+# Personal aquarium saves (drawings) - keep these off GitHub
+backups/
+*.bak
+
+# Local tools
+.claude/
